@@ -7,8 +7,16 @@ public class GameController : MonoBehaviour
     public GameObject mainCamera;
     public GameObject player;
 
-    public float respawnTime;
-    public float globalSpeed;
+    public float respawnTime {
+        get {
+            return calculateRespawnTime();
+        }
+    }
+    public float globalSpeed {
+        get {
+            return Balance.instance.currentGlobalSpeed;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -20,12 +28,6 @@ public class GameController : MonoBehaviour
     void Update()
     {
         mainCamera.transform.position = new Vector3( mainCamera.transform.position.x,  player.transform.position.y+10,  mainCamera.transform.position.z);
-        if (globalSpeed < Balance.instance.maxGlobalSpeed) {
-            globalSpeed += Balance.instance.increasePerTimeGlobalSpeed;
-        }
-        if (respawnTime > Balance.instance.minRespawnTime) {
-            respawnTime-=Balance.instance.increasePerTimeRespawnTime;
-        }
     }
 
     private IEnumerator EnemySpawner()
@@ -42,9 +44,8 @@ public class GameController : MonoBehaviour
                 enemy.transform.position = new Vector3(Random.Range(-17.0f, 17.0f), 2.1f, 500f);
                 enemy.transform.eulerAngles = new Vector3(0,90,0);
                 enemy.AddComponent<EnemyController>();
-                enemy.GetComponent<EnemyController>().gm = this;
 
-                enemy.GetComponent<EnemyController>().speed = Random.Range(-30f,30f);
+                enemy.GetComponent<EnemyController>().speed = -Random.Range(0f,40f);
                 enemy.SetActive(true);
             }
             // currentDifficulty = Mathf.Clamp(currentDifficulty+.15f, 1f, 30f);
@@ -62,12 +63,12 @@ public class GameController : MonoBehaviour
             //적 생성 조건
             if (globalSpeed > 100) {
                 GameObject enemy = SpawnEnemy();
+                
                 enemy.transform.position = new Vector3(Random.Range(-17.0f, 17.0f), 2.1f, 500f);
                 enemy.transform.eulerAngles = new Vector3(0,90,0);
                 enemy.AddComponent<EnemyController>();
-                enemy.GetComponent<EnemyController>().gm = this;
 
-                enemy.GetComponent<EnemyController>().speed = Random.Range(-30f,30f);
+                enemy.GetComponent<EnemyController>().speed = Random.Range(30f,0f);
                 enemy.SetActive(true);
             }
             // currentDifficulty = Mathf.Clamp(currentDifficulty+.15f, 1f, 30f);
@@ -88,5 +89,9 @@ public class GameController : MonoBehaviour
 
     private GameObject GetFromResource(string dir) {
         return Instantiate(Resources.Load(dir)) as GameObject;
+    }
+
+    private float calculateRespawnTime() {
+        return -1/1700 * (Balance.instance.currentGlobalSpeed-400f) + 0.1f;
     }
 }

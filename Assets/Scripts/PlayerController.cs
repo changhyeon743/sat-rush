@@ -6,7 +6,6 @@ public class PlayerController : MonoBehaviour
 {
 
     public Rigidbody rigidBody;
-    public GameController gm;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,10 +14,13 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionEnter(Collision target) {
         if (target.transform.tag == "Enemy") {
-            float oldGlobalSpeed = gm.globalSpeed;
-            gm.globalSpeed = 0f;
+            float oldGlobalSpeed = Balance.instance.currentGlobalSpeed;
+            Balance.instance.ResetGlobalSpeed();
             float enemySpeed = Mathf.Abs(target.transform.GetComponent<EnemyController>().speed);
-            rigidBody.AddForce((enemySpeed + oldGlobalSpeed / 30)/4*Random.Range(-1f,1f),enemySpeed + oldGlobalSpeed / 20,0f,ForceMode.Impulse);
+            rigidBody.AddForce(
+                (enemySpeed/4 + oldGlobalSpeed / 25)/4*Random.Range(-1f,1f),
+                enemySpeed/4 + oldGlobalSpeed / 35,
+                0f,ForceMode.Impulse);
         }
     }
 
@@ -28,11 +30,17 @@ public class PlayerController : MonoBehaviour
         //정상 주행 조건
         if (transform.position.y < 4) {
             
+            //속도 증가
+            if (Balance.instance.currentGlobalSpeed < Balance.instance.maxGlobalSpeed) {
+                //점점 속도 증가
+                Balance.instance.currentGlobalSpeed += Balance.instance.increasePerTimeGlobalSpeed;
+            }
+
             //방향 보정
             if (transform.localEulerAngles.y > 90) {
-                transform.Rotate (0,-1f, 0);
+                transform.Rotate (0,-0.5f, 0);
             } else if (transform.localEulerAngles.y < 90) {
-                transform.Rotate ( 0,1f,0);
+                transform.Rotate ( 0,0.5f,0);
             }
 
 
@@ -46,10 +54,15 @@ public class PlayerController : MonoBehaviour
                 transform.Translate(Vector3.forward * Time.deltaTime * 30f);
             }
             if (Input.GetKey(KeyCode.UpArrow)) {
-                transform.Translate(Vector3.left * Time.deltaTime * 30f);
+                Balance.instance.currentGlobalSpeed += 1f;
+
+                //transform.Translate(Vector3.left * Time.deltaTime * 30f);
             }
             if (Input.GetKey(KeyCode.DownArrow)) {
-                transform.Translate(Vector3.right * Time.deltaTime * 30f);
+                
+                Balance.instance.currentGlobalSpeed -= 5f;
+
+                //transform.Translate(Vector3.right * Time.deltaTime * 30f);
             }
         }
          
