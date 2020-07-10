@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class ScoreUIController : MonoBehaviour
 {
+    public Text speedText;
+
     public Text scoreText;
     // Start is called before the first frame update
     void Start()
@@ -16,6 +18,7 @@ public class ScoreUIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        scoreText.text = Mathf.FloorToInt(Balance.instance.currentGlobalSpeed) + "km";
+        speedText.text = Mathf.FloorToInt(Balance.instance.currentGlobalSpeed) + "km/h";
+        scoreText.text = Mathf.FloorToInt(Balance.instance.currentScore) + "km";
     }
 }

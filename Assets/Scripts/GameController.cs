@@ -27,6 +27,7 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Balance.instance.currentScore += 1 * Time.deltaTime;
         mainCamera.transform.position = new Vector3( mainCamera.transform.position.x,  player.transform.position.y+10,  mainCamera.transform.position.z);
     }
 

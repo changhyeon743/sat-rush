@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
             float enemySpeed = Mathf.Abs(target.transform.GetComponent<EnemyController>().speed);
             rigidBody.AddForce(
                 (enemySpeed/4 + oldGlobalSpeed / 25)/4*Random.Range(-1f,1f),
-                enemySpeed/4 + oldGlobalSpeed / 35,
+                enemySpeed/4 + oldGlobalSpeed / 25,
                 0f,ForceMode.Impulse);
         }
     }

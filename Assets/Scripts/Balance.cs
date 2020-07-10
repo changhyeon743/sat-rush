@@ -13,6 +13,7 @@ public class Balance: MonoBehaviour
     
     //current
     public float currentGlobalSpeed = 60f;
+    public float currentScore = 0f;
     public float currentRespawnTime = 0.3f;//= 0.3f;
 
 
