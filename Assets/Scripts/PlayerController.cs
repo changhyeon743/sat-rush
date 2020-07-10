@@ -17,10 +17,15 @@ public class PlayerController : MonoBehaviour
             float oldGlobalSpeed = Balance.instance.currentGlobalSpeed;
             Balance.instance.ResetGlobalSpeed();
             float enemySpeed = Mathf.Abs(target.transform.GetComponent<EnemyController>().speed);
-            rigidBody.AddForce(
+            target.GetComponent<Rigidbody>().AddForce(
                 (enemySpeed/4 + oldGlobalSpeed / 25)/4*Random.Range(-1f,1f),
                 enemySpeed/4 + oldGlobalSpeed / 25,
                 0f,ForceMode.Impulse);
+            
+            // rigidBody.AddForce(
+            //     (enemySpeed/4 + oldGlobalSpeed / 25)/4*Random.Range(-1f,1f),
+            //     enemySpeed/4 + oldGlobalSpeed / 25,
+            //     0f,ForceMode.Impulse);
         }
     }
 
@@ -46,12 +51,15 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetKey(KeyCode.LeftArrow)) {
                 //transform.Rotate(Vector3.down * Time.deltaTime * 130f);
-                transform.Translate(Vector3.back * Time.deltaTime * 30f);
+                if (transform.position.x > -20) {
+                    transform.Translate(Vector3.back * Time.deltaTime * 30f);
+                }
             }
             if (Input.GetKey(KeyCode.RightArrow)) {
                 //transform.Rotate(Vector3.up * Time.deltaTime * 130f);
-
-                transform.Translate(Vector3.forward * Time.deltaTime * 30f);
+                if (transform.position.x < 20) {
+                    transform.Translate(Vector3.forward * Time.deltaTime * 30f);
+                }
             }
             if (Input.GetKey(KeyCode.UpArrow)) {
                 Balance.instance.currentGlobalSpeed += 1f;
@@ -59,8 +67,9 @@ public class PlayerController : MonoBehaviour
                 //transform.Translate(Vector3.left * Time.deltaTime * 30f);
             }
             if (Input.GetKey(KeyCode.DownArrow)) {
-                
-                Balance.instance.currentGlobalSpeed -= 5f;
+                if (Balance.instance.currentGlobalSpeed > 0) {
+                    Balance.instance.currentGlobalSpeed -= 5f;
+                }
 
                 //transform.Translate(Vector3.right * Time.deltaTime * 30f);
             }

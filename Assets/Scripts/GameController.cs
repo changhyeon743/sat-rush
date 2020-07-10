@@ -7,11 +7,7 @@ public class GameController : MonoBehaviour
     public GameObject mainCamera;
     public GameObject player;
 
-    public float respawnTime {
-        get {
-            return calculateRespawnTime();
-        }
-    }
+    public float respawnTime = 0f;
     public float globalSpeed {
         get {
             return Balance.instance.currentGlobalSpeed;
@@ -27,7 +23,8 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Balance.instance.currentScore += 1 * Time.deltaTime;
+        respawnTime = calculateRespawnTime();
+        Balance.instance.currentScore += 1 * Time.deltaTime * Balance.instance.currentGlobalSpeed / 3600f * 1000f;
         mainCamera.transform.position = new Vector3( mainCamera.transform.position.x,  player.transform.position.y+10,  mainCamera.transform.position.z);
     }
 
@@ -42,7 +39,7 @@ public class GameController : MonoBehaviour
             //적 생성 조건
             if (globalSpeed > 100) {
                 GameObject enemy = SpawnEnemy();
-                enemy.transform.position = new Vector3(Random.Range(-17.0f, 17.0f), 2.1f, 500f);
+                enemy.transform.position = new Vector3(Random.Range(-19.0f, 19.0f), 2.1f, 500f);
                 enemy.transform.eulerAngles = new Vector3(0,90,0);
                 enemy.AddComponent<EnemyController>();
 
@@ -93,6 +90,6 @@ public class GameController : MonoBehaviour
     }
 
     private float calculateRespawnTime() {
-        return -1/1700 * (Balance.instance.currentGlobalSpeed-400f) + 0.1f;
+        return -1/2000f * (Balance.instance.currentGlobalSpeed-400f) + 0.1f;
     }
 }

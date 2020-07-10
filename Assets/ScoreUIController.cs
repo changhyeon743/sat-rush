@@ -19,6 +19,6 @@ public class ScoreUIController : MonoBehaviour
     void Update()
     {
         speedText.text = Mathf.FloorToInt(Balance.instance.currentGlobalSpeed) + "km/h";
-        scoreText.text = Mathf.FloorToInt(Balance.instance.currentScore) + "km";
+        scoreText.text = Mathf.FloorToInt(Balance.instance.currentScore) + "m";
     }
 }
