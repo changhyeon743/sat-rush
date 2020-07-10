@@ -17,21 +17,27 @@ public class PlayerController : MonoBehaviour
             float oldGlobalSpeed = Balance.instance.currentGlobalSpeed;
             Balance.instance.ResetGlobalSpeed();
             float enemySpeed = Mathf.Abs(target.transform.GetComponent<EnemyController>().speed);
-            target.GetComponent<Rigidbody>().AddForce(
-                (enemySpeed/4 + oldGlobalSpeed / 25)/4*Random.Range(-1f,1f),
-                enemySpeed/4 + oldGlobalSpeed / 25,
+
+            rigidBody.AddForce(
+                (enemySpeed/4 + oldGlobalSpeed / 7)/3*Random.Range(-1f,1f),
+                enemySpeed/4 + oldGlobalSpeed / 14,
+                0f,ForceMode.Impulse);
+
+            target.transform.GetComponent<Rigidbody>().AddForce(
+                (enemySpeed/4 + oldGlobalSpeed / 14 )/3*Random.Range(-1f,1f),
+                enemySpeed/4 + oldGlobalSpeed / 14 ,
                 0f,ForceMode.Impulse);
             
-            // rigidBody.AddForce(
-            //     (enemySpeed/4 + oldGlobalSpeed / 25)/4*Random.Range(-1f,1f),
-            //     enemySpeed/4 + oldGlobalSpeed / 25,
-            //     0f,ForceMode.Impulse);
+            
         }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (transform.position.y > 4) {
+
+        }
         //정상 주행 조건
         if (transform.position.y < 4) {
             
@@ -68,7 +74,7 @@ public class PlayerController : MonoBehaviour
             }
             if (Input.GetKey(KeyCode.DownArrow)) {
                 if (Balance.instance.currentGlobalSpeed > 0) {
-                    Balance.instance.currentGlobalSpeed -= 5f;
+                    Balance.instance.currentGlobalSpeed /= 1.2f;
                 }
 
                 //transform.Translate(Vector3.right * Time.deltaTime * 30f);

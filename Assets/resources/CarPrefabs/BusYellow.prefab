@@ -91,6 +91,7 @@ GameObject:
   m_Component:
   - component: {fileID: 439668}
   - component: {fileID: 8004968595752738643}
+  - component: {fileID: 7065489569319032307}
   m_Layer: 0
   m_Name: BusYellow
   m_TagString: Enemy
@@ -126,6 +127,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5.933223, y: 3.025836, z: 3.110488}
   m_Center: {x: 0.028220654, y: 1.012918, z: 0.002298355}
+--- !u!54 &7065489569319032307
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 121374}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &124124
 GameObject:
   m_ObjectHideFlags: 0

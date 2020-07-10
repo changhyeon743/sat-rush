@@ -16,7 +16,6 @@ public class Balance: MonoBehaviour
     public float currentScore = 0f;
     public float currentRespawnTime = 0.3f;//= 0.3f;
 
-
     void Awake()
     {
         if (instance == null) {

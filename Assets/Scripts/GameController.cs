@@ -43,7 +43,7 @@ public class GameController : MonoBehaviour
                 enemy.transform.eulerAngles = new Vector3(0,90,0);
                 enemy.AddComponent<EnemyController>();
 
-                enemy.GetComponent<EnemyController>().speed = -Random.Range(0f,40f);
+                enemy.GetComponent<EnemyController>().speed = -Random.Range(60f,110f);
                 enemy.SetActive(true);
             }
             // currentDifficulty = Mathf.Clamp(currentDifficulty+.15f, 1f, 30f);

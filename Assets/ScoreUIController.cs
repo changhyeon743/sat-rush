@@ -18,7 +18,7 @@ public class ScoreUIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        speedText.text = Mathf.FloorToInt(Balance.instance.currentGlobalSpeed) + "km/h";
-        scoreText.text = Mathf.FloorToInt(Balance.instance.currentScore) + "m";
+        speedText.text = Mathf.FloorToInt(Balance.instance.currentGlobalSpeed  / 3f) + "km/h";
+        scoreText.text = Mathf.FloorToInt(Balance.instance.currentScore/ 5f) + "m";
     }
 }
